@@ -1,5 +1,6 @@
 package com.lakue.itunesgreendaysearch.ui.bottomnavagation.home
 
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -13,18 +14,19 @@ class HomeAdapter(val viewModel: HomeViewModel) : BaseAdapter() {
 
     var musiclist = ArrayList<Track>()
 
-    fun addItems(items: ArrayList<Track>){
+    fun addItems(items: ArrayList<Track>) {
         var pos = musiclist.size
         musiclist.addAll(items)
-        notifyItemRangeInserted(pos, musiclist.size-1)
+        notifyItemRangeInserted(pos, musiclist.size - 1)
     }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         DataBindingUtil.inflate<ItemMusicBinding>(
-            LayoutInflater.from(parent.context),
-            R.layout.item_music,
-            parent,
-            false
+                LayoutInflater.from(parent.context),
+                R.layout.item_music,
+                parent,
+                false
         ).let {
             return HomeViewHolder(it)
         }
@@ -33,7 +35,7 @@ class HomeAdapter(val viewModel: HomeViewModel) : BaseAdapter() {
     override fun getItemCount() = musiclist.size
 
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
-        when(holder){
+        when (holder) {
             is HomeViewHolder -> {
                 holder.onBind(musiclist[position])
             }
@@ -44,7 +46,7 @@ class HomeAdapter(val viewModel: HomeViewModel) : BaseAdapter() {
      * ViewHolder
      */
     inner class HomeViewHolder(private val binding: ItemMusicBinding) :
-        BaseViewHolder(binding.root) {
+            BaseViewHolder(binding.root) {
         fun onBind(music: Track) {
             binding.apply {
                 this.vm = viewModel

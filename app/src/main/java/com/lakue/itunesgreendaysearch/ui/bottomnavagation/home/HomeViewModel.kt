@@ -3,6 +3,7 @@ package com.lakue.itunesgreendaysearch.ui.bottomnavagation.home
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import androidx.recyclerview.widget.RecyclerView
 import com.lakue.itunesgreendaysearch.base.BaseViewModel
 import com.lakue.itunesgreendaysearch.model.Track
 import com.lakue.itunesgreendaysearch.repository.FavoriteTrackRepository
@@ -32,6 +33,46 @@ class HomeViewModel @Inject constructor(
     private lateinit var favoriteTracks: List<Track>
 
     val adapter = HomeAdapter(this)
+
+    var liveEmpty = MutableLiveData<Boolean>(false)
+
+    init {
+        adapter.registerAdapterDataObserver(object :RecyclerView.AdapterDataObserver(){
+            override fun onChanged() {
+                super.onChanged()
+                checkEmpty()
+            }
+
+            override fun onItemRangeRemoved(positionStart: Int, itemCount: Int) {
+                super.onItemRangeRemoved(positionStart, itemCount)
+                checkEmpty()
+            }
+
+            override fun onItemRangeMoved(fromPosition: Int, toPosition: Int, itemCount: Int) {
+                super.onItemRangeMoved(fromPosition, toPosition, itemCount)
+                checkEmpty()
+            }
+
+            override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
+                super.onItemRangeInserted(positionStart, itemCount)
+                checkEmpty()
+            }
+
+            override fun onItemRangeChanged(positionStart: Int, itemCount: Int) {
+                super.onItemRangeChanged(positionStart, itemCount)
+                checkEmpty()
+            }
+
+            override fun onItemRangeChanged(positionStart: Int, itemCount: Int, payload: Any?) {
+                super.onItemRangeChanged(positionStart, itemCount, payload)
+                checkEmpty()
+            }
+
+            fun checkEmpty(){
+                liveEmpty.postValue(adapter.itemCount == 0)
+            }
+        })
+    }
 
     val favoriteTrack: Function2<Track, Boolean, Unit> = this::onFavorite
     //체크박스 Select Check

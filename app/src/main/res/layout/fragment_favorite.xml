@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <import type="android.view.View"/>
         <variable
             name="vm"
             type="com.lakue.itunesgreendaysearch.ui.bottomnavagation.home.HomeViewModel" />
@@ -14,10 +15,31 @@
         android:layout_height="match_parent">
 
         <com.lakue.itunesgreendaysearch.customview.CustomRecyclerView
+            android:visibility="@{vm.liveEmpty?View.GONE:View.VISIBLE}"
             setAdapter="@{vm.adapter}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
+
+        <LinearLayout
+            android:visibility="@{vm.liveEmpty?View.VISIBLE:View.GONE}"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:src="@drawable/icon_empty"
+                android:layout_width="120dp"
+                android:layout_height="120dp"/>
+
+            <TextView
+                android:layout_marginTop="16dp"
+                android:text="@string/favorite_empty"
+                style="@style/TextAppearance.ITunesMusic.Middle"/>
+
+        </LinearLayout>
 
     </FrameLayout>
 </layout>
