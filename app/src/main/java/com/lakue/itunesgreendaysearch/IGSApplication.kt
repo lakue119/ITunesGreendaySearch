@@ -14,8 +14,17 @@ class IGSApplication : Application() {
 
     var progressDialog: AppCompatDialog? = null
 
+    companion object{
+        lateinit var IGSApplication: IGSApplication
+
+        fun getInstance(): IGSApplication{
+            return IGSApplication
+        }
+    }
+
     override fun onCreate() {
         super.onCreate()
+        IGSApplication = this
         init(this)
         Fresco.initialize(this)
     }

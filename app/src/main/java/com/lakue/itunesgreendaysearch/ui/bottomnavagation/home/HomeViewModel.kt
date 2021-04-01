@@ -25,6 +25,9 @@ class HomeViewModel @Inject constructor(
     val liveMusic: LiveData<ArrayList<Track>> = _liveMusic
     val arrMusic = ArrayList<Track>()
 
+    val _loading = MutableLiveData<Boolean>()
+    val loading: LiveData<Boolean> = _loading
+
     private lateinit var favoriteTrackIds: List<Int>
     private lateinit var favoriteTracks: List<Track>
 
@@ -44,6 +47,7 @@ class HomeViewModel @Inject constructor(
     }
 
     fun fetchFavoriteTrack(){
+        _loading.value = true
         CoroutineScope(Dispatchers.IO).launch {
             favoriteTrackIds = db.fetchTrackIds()
         }
@@ -68,6 +72,7 @@ class HomeViewModel @Inject constructor(
                         arrMusic.addAll(data)
                         _liveMusic.postValue(arrMusic)
                         adapter.addItems(ArrayList(data))
+                        _loading.value = false
                     } else{
                         //Api Fail
                     }
@@ -80,6 +85,7 @@ class HomeViewModel @Inject constructor(
     }
 
     fun fetchFavoriteAll(){
+        _loading.value = true
         CoroutineScope(Dispatchers.IO).launch {
             favoriteTracks = db.fetchTracks()
 

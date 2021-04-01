@@ -1,5 +1,6 @@
 package com.lakue.itunesgreendaysearch.base
 
+import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,6 +12,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelLazy
+import com.lakue.itunesgreendaysearch.IGSApplication
 import java.lang.reflect.ParameterizedType
 
 
@@ -70,4 +72,12 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
 
     protected fun showToast(msg: String) =
             Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+
+    protected fun showLoading(){
+        IGSApplication.getInstance().showLoading(mContext as Activity)
+    }
+
+    protected fun hideLoading(){
+        IGSApplication.getInstance().hideLoading()
+    }
 }

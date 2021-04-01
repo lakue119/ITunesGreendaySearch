@@ -12,7 +12,7 @@
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
         app:lottie_speed="1.5"
-        app:lottie_fileName="loading_oburie.json"
+        app:lottie_fileName="loading_i_tunes.json"
         app:lottie_cacheComposition="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>

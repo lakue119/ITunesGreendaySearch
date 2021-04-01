@@ -19,8 +19,6 @@ class FavoriteFragment: BaseFragment<FragmentFavoriteBinding, HomeViewModel>(R.l
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        Fresco.initialize(mContext)
-
         binding.apply{
             vm = viewModel
         }
