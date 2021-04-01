@@ -2,6 +2,7 @@ package com.lakue.itunesgreendaysearch.ui.bottomnavagation.home
 
 import android.os.Bundle
 import android.view.View
+import com.facebook.drawee.backends.pipeline.Fresco
 import com.lakue.itunesgreendaysearch.R
 import com.lakue.itunesgreendaysearch.base.BaseFragment
 import com.lakue.itunesgreendaysearch.databinding.FragmentHomeBinding
@@ -13,8 +14,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.f
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+//        Fresco.initialize(mContext)
+
         binding.apply{
-            tvTitle.text = "야호"
+            vm = viewModel
         }
 
         viewModel.apply{

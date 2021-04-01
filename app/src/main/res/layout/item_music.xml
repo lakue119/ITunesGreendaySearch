@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="vm"
+            type="com.lakue.itunesgreendaysearch.ui.bottomnavagation.home.HomeViewModel" />
+
+        <variable
+            name="pos"
+            type="Integer" />
+
+        <variable
+            name="music"
+            type="com.lakue.itunesgreendaysearch.model.Result" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:background="@color/white"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        app:cardBackgroundColor="@color/color_dark_000000_ffffff"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:padding="8dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                app:roundedCornerRadius="8dp"
+                android:src="@color/black"
+                android:id="@+id/sdv_music"
+                imgUrl="@{String.valueOf(music.artworkUrl60)}"
+                android:scaleType="centerCrop"
+                app:placeholderImage="@drawable/ic_baseline_hourglass_top_24"
+                android:layout_width="60dp"
+                android:layout_height="60dp"/>
+
+            <LinearLayout
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    app:layout_constrainedWidth="true"
+                    android:text="@{music.trackName}"
+                    android:id="@+id/tv_track_name"
+                    style="@style/TextAppearance.ITunesMusic.Headline"/>
+
+                <TextView
+                    android:layout_marginTop="4dp"
+                    android:text="@{music.collectionName}"
+                    android:id="@+id/tv_collection_name"
+                    style="@style/TextAppearance.ITunesMusic.Middle"/>
+
+                <TextView
+                    android:layout_marginTop="2dp"
+                    android:text="@{music.artistName}"
+                    android:id="@+id/tv_artist_name"
+                    style="@style/TextAppearance.ITunesMusic.Middle"/>
+
+
+            </LinearLayout>
+
+            <CheckBox
+                android:id="@+id/check_all"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="right|bottom"
+                android:background="@drawable/selector_star"
+                android:button="@drawable/selector_star"
+                android:checked="false"/>
+        </LinearLayout>
+
+
+
+    </com.google.android.material.card.MaterialCardView>
+
+</layout>

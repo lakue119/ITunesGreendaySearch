@@ -5,6 +5,7 @@ import android.app.Application
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatDialog
+import com.facebook.drawee.backends.pipeline.Fresco
 import com.lakue.itunesgreendaysearch.utils.BaseUtils.init
 import dagger.hilt.android.HiltAndroidApp
 
@@ -16,6 +17,7 @@ class IGSApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         init(this)
+        Fresco.initialize(this)
     }
 
     fun showLoading(activity: Activity){

@@ -7,13 +7,16 @@ import com.lakue.itunesgreendaysearch.R
 import com.lakue.itunesgreendaysearch.base.BaseAdapter
 import com.lakue.itunesgreendaysearch.base.BaseViewHolder
 import com.lakue.itunesgreendaysearch.databinding.ItemMusicBinding
+import com.lakue.itunesgreendaysearch.model.Result
 
 class HomeAdapter(val viewModel: HomeViewModel) : BaseAdapter() {
-    var dataCount = 0
 
-    fun setCount(count: Int) {
-        dataCount = count
-        notifyDataSetChanged()
+    var musiclist = ArrayList<Result>()
+
+    fun addItems(items: ArrayList<Result>){
+        var pos = musiclist.size
+        musiclist.addAll(items)
+        notifyItemRangeInserted(pos, musiclist.size-1)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
@@ -27,12 +30,12 @@ class HomeAdapter(val viewModel: HomeViewModel) : BaseAdapter() {
         }
     }
 
-    override fun getItemCount() = dataCount
+    override fun getItemCount() = musiclist.size
 
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
         when(holder){
             is HomeViewHolder -> {
-                holder.onBind(viewModel)
+                holder.onBind(musiclist[position])
             }
         }
     }
@@ -42,9 +45,10 @@ class HomeAdapter(val viewModel: HomeViewModel) : BaseAdapter() {
      */
     inner class HomeViewHolder(private val binding: ItemMusicBinding) :
         BaseViewHolder(binding.root) {
-        fun onBind(vm: HomeViewModel) {
+        fun onBind(music: Result) {
             binding.apply {
-                this.vm = vm
+                this.vm = viewModel
+                this.music = music
                 this.pos = adapterPosition
             }
         }

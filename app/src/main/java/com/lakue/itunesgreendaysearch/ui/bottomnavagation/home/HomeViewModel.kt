@@ -33,8 +33,10 @@ class HomeViewModel @Inject constructor(
                     "song").let {reponseSearch ->
                     if(reponseSearch.isSuccessful){
                         //API Success
-                        arrMusic.addAll(reponseSearch.body()!!.results)
+                        var data = reponseSearch.body()!!.results
+                        arrMusic.addAll(data)
                         _liveMusic.postValue(arrMusic)
+                        adapter.addItems(ArrayList(data))
                     } else{
                         //Api Fail
                     }

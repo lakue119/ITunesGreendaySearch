@@ -1,9 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.ITunesGreendaySearch" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.ITunesGreendaySearch" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryVariant">@color/white</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
@@ -12,5 +12,39 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+    </style>
+
+    <style name="TextAppearance.ITunesMusic.Headline" parent="TextAppearance.AppCompat">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:fontFamily">@font/applesdgothicneoeb</item>
+        <item name="android:textSize">17dp</item>
+    </style>
+
+    <style name="TextAppearance.ITunesMusic.Middle" parent="TextAppearance.AppCompat">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:fontFamily">@font/applesdgothicneol</item>
+        <item name="android:textSize">13dp</item>
+    </style>
+
+    <style name="Transparent" parent="@style/Theme.AppCompat">
+        <!--Titlebar 없애는 옵션
+            true : Titlebar x
+            false : Titlebar o
+        -->
+        <item name="windowNoTitle">true</item>
+        <!-- 투명정도를 나타내는 색-->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation</item>
+        <!--
+        android:backgroundDimEnabled
+        true - 반투명 검정 /  false - 완전 투명
+        -->
+        <item name="android:backgroundDimEnabled">true</item>
     </style>
 </resources>
