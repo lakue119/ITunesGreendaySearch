@@ -7,13 +7,13 @@ import com.lakue.itunesgreendaysearch.R
 import com.lakue.itunesgreendaysearch.base.BaseAdapter
 import com.lakue.itunesgreendaysearch.base.BaseViewHolder
 import com.lakue.itunesgreendaysearch.databinding.ItemMusicBinding
-import com.lakue.itunesgreendaysearch.model.Result
+import com.lakue.itunesgreendaysearch.model.Track
 
 class HomeAdapter(val viewModel: HomeViewModel) : BaseAdapter() {
 
-    var musiclist = ArrayList<Result>()
+    var musiclist = ArrayList<Track>()
 
-    fun addItems(items: ArrayList<Result>){
+    fun addItems(items: ArrayList<Track>){
         var pos = musiclist.size
         musiclist.addAll(items)
         notifyItemRangeInserted(pos, musiclist.size-1)
@@ -45,7 +45,7 @@ class HomeAdapter(val viewModel: HomeViewModel) : BaseAdapter() {
      */
     inner class HomeViewHolder(private val binding: ItemMusicBinding) :
         BaseViewHolder(binding.root) {
-        fun onBind(music: Result) {
+        fun onBind(music: Track) {
             binding.apply {
                 this.vm = viewModel
                 this.music = music

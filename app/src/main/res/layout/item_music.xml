@@ -14,7 +14,7 @@
 
         <variable
             name="music"
-            type="com.lakue.itunesgreendaysearch.model.Result" />
+            type="com.lakue.itunesgreendaysearch.model.Track" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -74,6 +74,9 @@
             </LinearLayout>
 
             <CheckBox
+                onCheckChangeAction="@{vm.favoriteTrack}"
+                track="@{music}"
+                favoriteChecked="@{music.favorite}"
                 android:id="@+id/check_all"
                 android:layout_width="20dp"
                 android:layout_height="20dp"

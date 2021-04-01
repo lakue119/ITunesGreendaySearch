@@ -1,6 +1,10 @@
 package com.lakue.itunesgreendaysearch.model
 
-data class Result(
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity
+data class Track(
     val artistId: Int,
     val artistName: String,
     val artistViewUrl: String,
@@ -25,11 +29,13 @@ data class Result(
     val trackCensoredName: String,
     val trackCount: Int,
     val trackExplicitness: String,
+    @PrimaryKey(autoGenerate = true)
     val trackId: Int,
     val trackName: String,
     val trackNumber: Int,
     val trackPrice: Double,
     val trackTimeMillis: Int,
     val trackViewUrl: String,
-    val wrapperType: String
+    val wrapperType: String,
+    var favorite: Boolean = false
 )

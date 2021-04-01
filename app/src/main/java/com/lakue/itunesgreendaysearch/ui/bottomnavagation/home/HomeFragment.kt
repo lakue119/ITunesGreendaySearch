@@ -21,6 +21,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.f
         }
 
         viewModel.apply{
+            fetchFavoriteTrack()
             fetchiTunesMusic()
         }
 
