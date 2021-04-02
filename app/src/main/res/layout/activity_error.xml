@@ -5,32 +5,66 @@
 
     </data>
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <TextView
-            style="@style/TextAppearance.AppCompat.Display1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="에러 화면" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/btn_reload"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="새로고침" />
 
-        <TextView
-            android:id="@+id/tv_error_log"
-            style="@style/TextAppearance.AppCompat.Body1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp" />
+            <TextView
+                android:textSize="100dp"
+                android:textColor="@color/black"
+                android:layout_marginTop="60dp"
+                android:text="@string/exception_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
-    </LinearLayout>
+            <TextView
+                android:layout_marginTop="20dp"
+                style="@style/TextAppearance.ITunesMusic.Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/exception_title" />
+
+            <TextView
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:lineSpacingExtra="4dp"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:layout_gravity="center"
+                style="@style/TextAppearance.ITunesMusic.Miduam"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/exception_subtitle" />
+
+            <Button
+                android:backgroundTint="@color/point_1000"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                android:paddingRight="48dp"
+                android:paddingLeft="48dp"
+                android:id="@+id/btn_reload"
+                android:textColor="@color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="새로고침" />
+
+            <TextView
+                android:id="@+id/tv_error_log"
+                style="@style/TextAppearance.AppCompat.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp" />
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </layout>

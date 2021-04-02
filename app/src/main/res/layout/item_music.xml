@@ -18,6 +18,7 @@
     </data>
 
     <com.google.android.material.card.MaterialCardView
+        android:onClick="@{() -> vm.onMusicDetail(music)}"
         android:background="@color/white"
         android:layout_marginLeft="12dp"
         android:layout_marginRight="12dp"
@@ -62,13 +63,13 @@
                     android:layout_marginTop="4dp"
                     android:text="@{music.collectionName}"
                     android:id="@+id/tv_collection_name"
-                    style="@style/TextAppearance.ITunesMusic.Middle"/>
+                    style="@style/TextAppearance.ITunesMusic.Small"/>
 
                 <TextView
                     android:layout_marginTop="2dp"
                     android:text="@{music.artistName}"
                     android:id="@+id/tv_artist_name"
-                    style="@style/TextAppearance.ITunesMusic.Middle"/>
+                    style="@style/TextAppearance.ITunesMusic.Small"/>
 
 
             </LinearLayout>

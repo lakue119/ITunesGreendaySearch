@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Process
 import com.lakue.itunesgreendaysearch.ui.error.ErrorActivity
+import com.lakue.itunesgreendaysearch.utils.LogUtil
 import java.io.PrintWriter
 import java.io.StringWriter
 
@@ -74,7 +75,7 @@ class IGSExceptionHandler(
                     addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
                 }
         startActivity(errorActivityIntent)
-//        finish()
+        finish()
     }
 
 }

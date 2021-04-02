@@ -1,7 +1,9 @@
 package com.lakue.itunesgreendaysearch.model
 
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.io.Serializable
 
 @Entity
 data class Track(
@@ -38,4 +40,4 @@ data class Track(
     val trackViewUrl: String,
     val wrapperType: String,
     var favorite: Boolean = false
-)
+): Serializable

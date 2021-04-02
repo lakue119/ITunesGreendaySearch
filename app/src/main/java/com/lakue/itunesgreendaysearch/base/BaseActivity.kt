@@ -15,9 +15,12 @@ import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelLazy
+import androidx.lifecycle.observe
 import com.lakue.itunesgreendaysearch.OnThrottleClickListener
 import com.lakue.itunesgreendaysearch.R
+import com.lakue.itunesgreendaysearch.utils.Event
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
@@ -66,5 +69,11 @@ abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel>(
     protected fun View.onThrottleClick(action: (v: View) -> Unit) {
         val listener = View.OnClickListener { action(it) }
         setOnClickListener(OnThrottleClickListener(listener))
+    }
+
+    protected infix fun <T> LiveData<Event<T>>.eventObserve(action: (T) -> Unit) {
+        observe(this@BaseActivity) {
+            it.get(action)
+        }
     }
 }

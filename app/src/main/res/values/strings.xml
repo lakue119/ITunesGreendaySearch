@@ -5,4 +5,7 @@
     <string name="nav_home">Home</string>
     <string name="nav_favorite">Favorite</string>
     <string name="favorite_empty">좋아하는 음악을 담아보세요~</string>
+    <string name="exception_title">일시적인 오류입니다</string>
+    <string name="exception_subtitle">새로 고침을 눌러 페이지를 다시 불러올 수 있습니다.\n문제가 반복된다면 지원자에게 문의주세요.</string>
+    <string name="exception_icon">😭</string>
 </resources>

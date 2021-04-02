@@ -37,7 +37,7 @@
             <TextView
                 android:layout_marginTop="16dp"
                 android:text="@string/favorite_empty"
-                style="@style/TextAppearance.ITunesMusic.Middle"/>
+                style="@style/TextAppearance.ITunesMusic.Small"/>
 
         </LinearLayout>
 

@@ -14,6 +14,13 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="TextAppearance.ITunesMusic.Title" parent="TextAppearance.AppCompat">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">@font/applesdgothicneoeb</item>
+        <item name="android:textSize">20dp</item>
+    </style>
 
     <style name="TextAppearance.ITunesMusic.Headline" parent="TextAppearance.AppCompat">
         <item name="android:layout_width">wrap_content</item>
@@ -23,7 +30,15 @@
         <item name="android:textSize">17dp</item>
     </style>
 
-    <style name="TextAppearance.ITunesMusic.Middle" parent="TextAppearance.AppCompat">
+    <style name="TextAppearance.ITunesMusic.Miduam" parent="TextAppearance.AppCompat">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">@font/applesdgothicneol</item>
+        <item name="android:textSize">15dp</item>
+    </style>
+
+    <style name="TextAppearance.ITunesMusic.Small" parent="TextAppearance.AppCompat">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/white</item>

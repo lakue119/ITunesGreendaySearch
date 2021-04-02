@@ -11,8 +11,11 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelLazy
+import androidx.lifecycle.observe
 import com.lakue.itunesgreendaysearch.IGSApplication
+import com.lakue.itunesgreendaysearch.utils.Event
 import java.lang.reflect.ParameterizedType
 
 
@@ -79,5 +82,11 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
 
     protected fun hideLoading(){
         IGSApplication.getInstance().hideLoading()
+    }
+
+    protected infix fun <T> LiveData<Event<T>>.eventObserve(action: (T) -> Unit) {
+        observe(viewLifecycleOwner) {
+            it.get(action)
+        }
     }
 }

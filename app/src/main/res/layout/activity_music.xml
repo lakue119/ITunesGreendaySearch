@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="music"
+            type="com.lakue.itunesgreendaysearch.model.Track" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="@color/black"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_marginTop="60dp"
+            android:id="@+id/tv_track_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="@{music.trackName}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:fontFamily="@font/applesdgothicneoeb"
+            android:textSize="20dp"/>
+
+        <TextView
+            android:layout_marginTop="8dp"
+            android:id="@+id/tv_artist_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_track_name"
+            android:text="@{music.artistName}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/gray_900"
+            android:fontFamily="@font/applesdgothicneol"
+            android:textSize="15dp"/>
+
+        <co.mobiwise.library.MusicPlayerView
+            android:layout_marginTop="120dp"
+            android:id="@+id/music_player_view"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            app:buttonColor="#FF0028"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_artist_name"
+            app:progressEmptyColor="#20FFFFFF"
+            app:progressLoadedColor="#00815E"
+            app:textColor="#80FFFFFF"
+            app:textSize="14sp" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

@@ -8,6 +8,7 @@ import com.lakue.itunesgreendaysearch.base.BaseViewModel
 import com.lakue.itunesgreendaysearch.model.Track
 import com.lakue.itunesgreendaysearch.repository.FavoriteTrackRepository
 import com.lakue.itunesgreendaysearch.repository.ITunesRepository
+import com.lakue.itunesgreendaysearch.utils.Event
 import com.lakue.itunesgreendaysearch.utils.NetworkHelper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -28,6 +29,10 @@ class HomeViewModel @Inject constructor(
 
     val _loading = MutableLiveData<Boolean>()
     val loading: LiveData<Boolean> = _loading
+
+
+    private val _musickDetailEvent = MutableLiveData<Event<Track>>()
+    val musickDetailEvent: LiveData<Event<Track>> = _musickDetailEvent
 
     private lateinit var favoriteTrackIds: List<Int>
     private lateinit var favoriteTracks: List<Track>
@@ -126,7 +131,7 @@ class HomeViewModel @Inject constructor(
     }
 
     fun fetchFavoriteAll(){
-        _loading.value = true
+        _loading.value = false
         CoroutineScope(Dispatchers.IO).launch {
             favoriteTracks = db.fetchTracks()
 
@@ -136,8 +141,7 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-//    fun getLiveTest(): ResponseSearch{
-//        return liveMusic.value!!
-//    }
-
+    fun onMusicDetail(item: Track){
+        _musickDetailEvent.value = Event(item)
+    }
 }
