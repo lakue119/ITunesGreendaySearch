@@ -7,6 +7,7 @@ import javax.inject.Inject
 class ApiHelperImpl @Inject constructor(
         private val apiService: ApiService) : ApiHelper {
 
-    override suspend fun getiTunesSearch(term: String, entity: String): Response<ResponseSearch> = apiService.getiTunesSearch(term, entity)
+    override suspend fun getiTunesSearch(term: String, entity: String, limit: Int, offset: Int): Response<ResponseSearch> =
+        apiService.getiTunesSearch(term, entity, limit, offset)
 
 }

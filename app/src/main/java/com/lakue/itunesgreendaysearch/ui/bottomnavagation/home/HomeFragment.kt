@@ -37,7 +37,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.f
 
             musickDetailEvent eventObserve { musicDetail(it) }
         }
-
     }
 
     companion object {

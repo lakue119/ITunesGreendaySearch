@@ -40,7 +40,6 @@
                 android:id="@+id/sdv_music"
                 imgUrl="@{String.valueOf(music.artworkUrl60)}"
                 android:scaleType="centerCrop"
-                app:placeholderImage="@drawable/ic_baseline_hourglass_top_24"
                 android:layout_width="60dp"
                 android:layout_height="60dp"/>
 

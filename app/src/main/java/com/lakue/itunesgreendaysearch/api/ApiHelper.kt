@@ -4,5 +4,5 @@ import com.lakue.itunesgreendaysearch.model.ResponseSearch
 import retrofit2.Response
 
 interface ApiHelper {
-    suspend fun getiTunesSearch(term: String, entity: String): Response<ResponseSearch>
+    suspend fun getiTunesSearch(term: String, entity: String, limit: Int, offset: Int): Response<ResponseSearch>
 }
