@@ -49,7 +49,10 @@ abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel>(
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, layoutId)
         binding.lifecycleOwner = this
+        init()
     }
+
+    abstract fun init()
 
     override fun onDestroy() {
         super.onDestroy()

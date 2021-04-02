@@ -82,7 +82,7 @@ class HomeViewModel @Inject constructor(
             if(isFavorite){
                 db.insertTrack(music)
             } else {
-                db.deleteTrack(music)
+                db.insertTrack(music)
             }
         }
     }
