@@ -18,6 +18,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelLazy
 import androidx.lifecycle.observe
+import com.lakue.itunesgreendaysearch.IGSApplication
 import com.lakue.itunesgreendaysearch.OnThrottleClickListener
 import com.lakue.itunesgreendaysearch.R
 import com.lakue.itunesgreendaysearch.utils.Event
@@ -75,5 +76,13 @@ abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel>(
         observe(this@BaseActivity) {
             it.get(action)
         }
+    }
+
+    protected fun showLoading(){
+        IGSApplication.getInstance().showLoading(this)
+    }
+
+    protected fun hideLoading(){
+        IGSApplication.getInstance().hideLoading()
     }
 }
