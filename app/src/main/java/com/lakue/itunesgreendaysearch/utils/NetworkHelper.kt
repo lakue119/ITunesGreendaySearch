@@ -29,9 +29,9 @@ class NetworkHelper @Inject constructor(@ApplicationContext private val context:
             connectivityManager.run {
                 connectivityManager.activeNetworkInfo?.run {
                     result = when (type) {
-                        ConnectivityManager.TYPE_WIFI -> true
-                        ConnectivityManager.TYPE_MOBILE -> true
-                        ConnectivityManager.TYPE_ETHERNET -> true
+                        NetworkCapabilities.TRANSPORT_WIFI -> true
+                        NetworkCapabilities.TRANSPORT_CELLULAR -> true
+                        NetworkCapabilities.TRANSPORT_ETHERNET -> true
                         else -> false
                     }
 

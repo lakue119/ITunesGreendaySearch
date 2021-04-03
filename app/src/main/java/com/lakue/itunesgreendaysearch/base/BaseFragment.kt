@@ -13,7 +13,6 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelLazy
-import androidx.lifecycle.observe
 import com.lakue.itunesgreendaysearch.IGSApplication
 import com.lakue.itunesgreendaysearch.utils.Event
 import java.lang.reflect.ParameterizedType
@@ -28,6 +27,7 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
 
     lateinit var mContext: Context
 
+    @SuppressWarnings("unchecked")
     private val viewModelClass = ((javaClass.genericSuperclass as ParameterizedType?)
             ?.actualTypeArguments
             ?.get(1) as Class<VM>).kotlin

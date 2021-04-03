@@ -8,14 +8,15 @@ import com.lakue.itunesgreendaysearch.R
 import com.lakue.itunesgreendaysearch.base.BaseActivity
 import com.lakue.itunesgreendaysearch.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_main.*
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(R.layout.activity_main) {
 
     override fun init() {
-        NavigationUI.setupWithNavController(bottomNavigationView, findNavController(
-            R.id.nav_host_fragment))
-        bottomNavigationView.itemIconTintList = null
+        binding.apply{
+            NavigationUI.setupWithNavController(bottomNavigationView, findNavController(
+                R.id.nav_host_fragment))
+            bottomNavigationView.itemIconTintList = null
+        }
     }
 }

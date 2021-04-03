@@ -8,6 +8,9 @@
             name="music"
             type="com.lakue.itunesgreendaysearch.model.Track" />
         <variable
+            name="vm"
+            type="com.lakue.itunesgreendaysearch.ui.music.MusicViewModel" />
+        <variable
             name="activity"
             type="com.lakue.itunesgreendaysearch.ui.music.MusicActivity" />
     </data>
@@ -19,6 +22,8 @@
 
         <TextView
             android:layout_marginTop="60dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:id="@+id/tv_track_name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -32,6 +37,8 @@
 
         <TextView
             android:layout_marginTop="8dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:id="@+id/tv_artist_name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -44,20 +51,22 @@
             android:textSize="15dp"/>
 
         <co.mobiwise.library.MusicPlayerView
-            android:layout_marginTop="120dp"
+            android:layout_marginTop="200dp"
             android:id="@+id/music_player_view"
             android:layout_width="250dp"
             android:layout_height="250dp"
             app:buttonColor="#FF0028"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_artist_name"
+            app:layout_constraintTop_toTopOf="parent"
             app:progressEmptyColor="#20FFFFFF"
             app:progressLoadedColor="#00815E"
             app:textColor="#80FFFFFF"
             app:textSize="14sp" />
 
         <LinearLayout
+            android:layout_marginTop="40dp"
+            android:gravity="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/music_player_view"
@@ -66,25 +75,27 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:onClick="@{() -> activity.onBeforeMusic()}"
+                android:onClick="@{() -> vm.onBeforeMusic()}"
                 android:src="@drawable/ic_round_skip_previous_24"
-                android:layout_width="48dp"
-                android:layout_height="48dp"/>
+                android:layout_width="40dp"
+                android:layout_height="40dp"/>
 
             <CheckBox
+                android:layout_marginRight="48dp"
+                android:layout_marginLeft="48dp"
+                android:gravity="center"
                 android:id="@+id/check_all"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_gravity="right|bottom"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:background="@drawable/selector_star"
                 android:button="@drawable/selector_star"
                 android:checked="false"/>
 
             <ImageView
-                android:onClick="@{() -> activity.onNextMusic()}"
+                android:onClick="@{() -> vm.onNextMusic()}"
                 android:src="@drawable/ic_round_skip_next_24"
-                android:layout_width="48dp"
-                android:layout_height="48dp"/>
+                android:layout_width="40dp"
+                android:layout_height="40dp"/>
 
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

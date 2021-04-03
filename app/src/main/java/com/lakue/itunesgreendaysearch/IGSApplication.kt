@@ -41,14 +41,14 @@ class IGSApplication : Application() {
         Thread.setDefaultUncaughtExceptionHandler(
             IGSExceptionHandler(
                 this,
-                defaultExceptionHandler,
-                fabricExceptionHandler
+                defaultExceptionHandler!!,
+                fabricExceptionHandler!!
             )
         )
     }
 
     fun showLoading(activity: Activity){
-        if(activity == null || activity.isFinishing){
+        if(activity.isFinishing){
             return
         }
 
