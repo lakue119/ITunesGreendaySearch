@@ -26,7 +26,7 @@ class HomeViewModel @Inject constructor(
         private val iTunesRepository: ITunesRepository
 ) : BaseViewModel() {
 
-    val LIMIT_COUNT = 20
+    val LIMIT_COUNT = 30
 
     private val _liveMusic = MutableLiveData<ArrayList<Track>>()
     val liveMusic: LiveData<ArrayList<Track>> = _liveMusic
@@ -37,11 +37,14 @@ class HomeViewModel @Inject constructor(
 
     private var rvloading = false
 
-    private val _musickDetailEvent = MutableLiveData<Event<Pair<ArrayList<Track>, Int>>>()
-    val musickDetailEvent: LiveData<Event<Pair<ArrayList<Track>, Int>>> = _musickDetailEvent
+    private val _musickDetailEvent = MutableLiveData<Event<Triple<ArrayList<Track>, Int, Int>>>()
+    val musickDetailEvent: LiveData<Event<Triple<ArrayList<Track>, Int, Int>>> = _musickDetailEvent
 
     private lateinit var favoriteTrackIds: List<Int>
     private lateinit var favoriteTracks: List<Track>
+
+    val rvBottomCatch: Function1<Int, Unit> = this::onBottomCatch
+    val favoriteTrack: Function2<Track, Boolean, Unit> = this::onFavorite
 
     val adapter = HomeAdapter(this)
 
@@ -85,8 +88,6 @@ class HomeViewModel @Inject constructor(
         })
     }
 
-    val favoriteTrack: Function2<Track, Boolean, Unit> = this::onFavorite
-
     //체크박스 Select Check
     fun onFavorite(music: Track, isFavorite: Boolean) {
         CoroutineScope(Dispatchers.IO).launch {
@@ -94,13 +95,10 @@ class HomeViewModel @Inject constructor(
             if (isFavorite) {
                 db.insertTrack(music)
             } else {
-                db.insertTrack(music)
+                db.deleteTrack(music)
             }
         }
     }
-
-
-    val rvBottomCatch: Function1<Int, Unit> = this::onBottomCatch
 
     //RecyclerView Bottom Catch
     fun onBottomCatch(aa: Int) {
@@ -125,7 +123,7 @@ class HomeViewModel @Inject constructor(
                         "greenday",
                         "song",
                         LIMIT_COUNT,
-                        adapter.itemCount).let { reponseSearch ->
+                    adapter.itemCount).let { reponseSearch ->
                     if (reponseSearch.isSuccessful) {
                         //API Success
                         val data = reponseSearch.body()!!.results
@@ -145,8 +143,27 @@ class HomeViewModel @Inject constructor(
                 }
             } else {
                 //네트워크 연결 실패
-
             }
+        }
+    }
+
+    fun favoriteTrackCheck(trackPositions: ArrayList<Int>){
+        _loading.value = true
+        CoroutineScope(Dispatchers.IO).launch {
+            favoriteTrackIds = db.fetchTrackIds()
+
+            for(pos in trackPositions){
+                var trackId = arrMusic[pos].trackId
+                if (favoriteTrackIds.contains(trackId)) {
+                    LogUtil.i("QWLKRJKLQWJR", "$pos :  isFavorite : true")
+                    adapter.favoriteTrackChanged(pos, true)
+                } else {
+                    LogUtil.i("QWLKRJKLQWJR", "$pos :  isFavorite : false")
+                    adapter.favoriteTrackChanged(pos, false)
+                }
+            }
+            _loading.postValue(false)
+            rvloading = false
         }
     }
 
@@ -161,9 +178,12 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun onMusicDetail(pos: Int) {
-        var position = pos - max(0,pos-20)
-        var limitMusicList = ArrayList(arrMusic.subList(max(0,pos-20),min(pos+20,arrMusic.size)))
-        _musickDetailEvent.value = Event(Pair(limitMusicList, pos))
+    fun onMusicDetail(homePos: Int) {
+        //detail 0번째 position
+        LogUtil.d("KQWJRKLQWJRLK", "vm homePos : $homePos")
+        var position = homePos - max(0,homePos-30)
+        var arrTracks = liveMusic.value!!
+        var limitMusicList = ArrayList(arrTracks.subList(max(0,homePos-30),min(homePos+30,arrTracks.size)))
+        _musickDetailEvent.value = Event(Triple(limitMusicList, position, homePos))
     }
 }

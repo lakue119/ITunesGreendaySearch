@@ -9,7 +9,9 @@ import com.lakue.itunesgreendaysearch.model.Track
 
 @BindingAdapter("onCheckChangeAction", "track")
 fun CheckBox.onCheckChangeAction(f: Function2<Track, Boolean, Unit>?, track: Track) {
-
+    if(track == null){
+        return
+    }
     if (f == null) setOnClickListener(null)
     else setOnClickListener {
         f(track,isChecked)

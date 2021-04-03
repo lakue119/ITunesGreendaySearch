@@ -145,6 +145,6 @@ dependencies {
     //Fresco 이미지 로딩
     implementation 'com.facebook.fresco:fresco:2.4.0'
 
-    //음악 로드 라이브러리
+    //음악플레이어 라이브러리
     implementation 'com.github.iammert:MusicPlayerView:e3b937c729'
 }

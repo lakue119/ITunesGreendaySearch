@@ -1,5 +1,7 @@
 package com.lakue.itunesgreendaysearch.ui.music
 
+import android.app.Activity
+import android.content.Intent
 import android.media.AudioAttributes
 import android.media.MediaPlayer
 import android.os.Build
@@ -8,12 +10,15 @@ import com.lakue.itunesgreendaysearch.R
 import com.lakue.itunesgreendaysearch.base.BaseActivity
 import com.lakue.itunesgreendaysearch.databinding.ActivityMusicBinding
 import com.lakue.itunesgreendaysearch.model.Track
+import com.lakue.itunesgreendaysearch.utils.LogUtil
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 
+@AndroidEntryPoint
 class MusicActivity : BaseActivity<ActivityMusicBinding, MusicViewModel>(R.layout.activity_music) {
 
     var isStart = false
@@ -21,6 +26,7 @@ class MusicActivity : BaseActivity<ActivityMusicBinding, MusicViewModel>(R.layou
     companion object {
         const val EXTRA_TRACK = "EXTRA_TRACK"
         const val EXTRA_POSITION = "EXTRA_POSITION"
+        const val EXTRA_ORIGIN_POSITION = "EXTRA_ORIGIN_POSITION"
     }
 
     lateinit var mediaPlayer: MediaPlayer
@@ -28,27 +34,34 @@ class MusicActivity : BaseActivity<ActivityMusicBinding, MusicViewModel>(R.layou
 
     private val tracks by lazy { intent.getSerializableExtra(EXTRA_TRACK) as ArrayList<Track> }
     private val pos by lazy { intent.getIntExtra(EXTRA_POSITION, 0) }
-    var nowPosition = 0
+    private val homePosition by lazy { intent.getIntExtra(EXTRA_ORIGIN_POSITION, 0) }
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun init() {
         binding.apply {
             activity = this@MusicActivity
             vm = viewModel
+            music = Track()
         }
 
         showLoading()
-        nowPosition = pos - Integer.max(0, pos - 20)
 
         mediaPlayer = MediaPlayer()
         setEvent()
 
         viewModel.apply {
-            setTracks(tracks, nowPosition)
+            setTracks(tracks, pos, homePosition)
             musickDetailEvent eventObserve { musicStart(it) }
         }
 
 //        musicStart()
+    }
+
+    override fun finish() {
+        val resultIntent = Intent()
+        resultIntent.putExtra("result", viewModel.changeTrachPosition)
+        setResult(RESULT_OK, resultIntent)
+        super.finish()
     }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
@@ -115,24 +128,5 @@ class MusicActivity : BaseActivity<ActivityMusicBinding, MusicViewModel>(R.layou
         mediaPlayer.release()
         super.onDestroy()
     }
-
-//    fun onNextMusic(){
-//        if(nowPosition >= tracks.size-1){
-//            nowPosition = 0
-//        } else {
-//            nowPosition++
-//        }
-//        musicStart()
-//    }
-//
-//    fun onBeforeMusic(){
-//        if(nowPosition <= 0){
-//            nowPosition = tracks.size-1
-//        } else {
-//            nowPosition--
-//        }
-//        musicStart()
-//    }
-
 
 }

@@ -28,7 +28,7 @@ class IGSApplication : Application() {
         IGSApplication = this
         init(this)
         Fresco.initialize(this)
-        setCrashHandler()
+//        setCrashHandler()
     }
 
     private fun setCrashHandler() {
