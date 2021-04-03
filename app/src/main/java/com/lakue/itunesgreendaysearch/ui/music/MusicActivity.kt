@@ -1,10 +1,10 @@
 package com.lakue.itunesgreendaysearch.ui.music
 
-import android.app.Activity
 import android.content.Intent
 import android.media.AudioAttributes
 import android.media.MediaPlayer
 import android.os.Build
+import android.os.SystemClock
 import androidx.annotation.RequiresApi
 import com.lakue.itunesgreendaysearch.R
 import com.lakue.itunesgreendaysearch.base.BaseActivity
@@ -21,13 +21,13 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class MusicActivity : BaseActivity<ActivityMusicBinding, MusicViewModel>(R.layout.activity_music) {
 
-    var isStart = false
-
     companion object {
         const val EXTRA_TRACK = "EXTRA_TRACK"
         const val EXTRA_POSITION = "EXTRA_POSITION"
         const val EXTRA_ORIGIN_POSITION = "EXTRA_ORIGIN_POSITION"
     }
+    val TAG = "MusicActivity"
+    var isStart = false
 
     lateinit var mediaPlayer: MediaPlayer
 
@@ -51,10 +51,9 @@ class MusicActivity : BaseActivity<ActivityMusicBinding, MusicViewModel>(R.layou
 
         viewModel.apply {
             setTracks(tracks, pos, homePosition)
-            musickDetailEvent eventObserve { musicStart(it) }
+            musickDetailEvent eventObserve { setMedia(it) }
         }
 
-//        musicStart()
     }
 
     override fun finish() {
@@ -65,7 +64,7 @@ class MusicActivity : BaseActivity<ActivityMusicBinding, MusicViewModel>(R.layou
     }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-    fun musicStart(track: Track) {
+    fun setMedia(track: Track) {
         showLoading()
         setMidiaReset()
         CoroutineScope(Dispatchers.Main).launch {
@@ -87,10 +86,7 @@ class MusicActivity : BaseActivity<ActivityMusicBinding, MusicViewModel>(R.layou
                 musicPlayerView.setCoverURL(track.artworkUrl100)
                 musicPlayerView.setMax(mediaPlayer.duration / 1000)
 
-//                musicPlayerView.stop()
-                musicPlayerView.start()
-                mediaPlayer.start()
-                isStart = true
+                musicStart()
             }
         }
     }
@@ -103,14 +99,10 @@ class MusicActivity : BaseActivity<ActivityMusicBinding, MusicViewModel>(R.layou
     fun setEvent() {
         binding.apply {
             musicPlayerView.setOnClickListener {
-                isStart = if (isStart) {
-                    musicPlayerView.stop()
-                    mediaPlayer.pause()
-                    false
+                if (isStart) {
+                    musicPause()
                 } else {
-                    musicPlayerView.start()
-                    mediaPlayer.start()
-                    true
+                    musicStart()
                 }
             }
         }
@@ -119,6 +111,22 @@ class MusicActivity : BaseActivity<ActivityMusicBinding, MusicViewModel>(R.layou
             setOnCompletionListener {
                 viewModel.onNextMusic()
             }
+        }
+    }
+
+    fun musicStart(){
+        binding.apply{
+            musicPlayerView.start()
+            mediaPlayer.start()
+            isStart = true
+        }
+    }
+
+    fun musicPause(){
+        binding.apply{
+            musicPlayerView.stop()
+            mediaPlayer.pause()
+            isStart = false
         }
     }
 
