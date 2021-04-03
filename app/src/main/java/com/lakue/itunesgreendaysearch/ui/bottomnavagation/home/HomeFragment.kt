@@ -11,6 +11,7 @@ import com.lakue.itunesgreendaysearch.base.BaseFragment
 import com.lakue.itunesgreendaysearch.databinding.FragmentHomeBinding
 import com.lakue.itunesgreendaysearch.model.Track
 import com.lakue.itunesgreendaysearch.ui.music.MusicActivity
+import com.lakue.itunesgreendaysearch.ui.music.MusicActivity.Companion.EXTRA_POSITION
 import com.lakue.itunesgreendaysearch.ui.music.MusicActivity.Companion.EXTRA_TRACK
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -35,7 +36,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.f
                 }
             })
 
-            musickDetailEvent eventObserve { musicDetail(it) }
+            musickDetailEvent eventObserve { musicDetail(it.first, it.second) }
         }
     }
 
@@ -45,9 +46,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.f
             HomeFragment()
     }
 
-    fun musicDetail(item: Track) {
+    fun musicDetail(items: ArrayList<Track>, pos: Int) {
         val intent = Intent(mContext, MusicActivity::class.java)
-        intent.putExtra(EXTRA_TRACK,item)
+        intent.putExtra(EXTRA_TRACK,items)
+        intent.putExtra(EXTRA_POSITION,pos)
         startActivity(intent)
     }
 }

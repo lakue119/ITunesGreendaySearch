@@ -15,6 +15,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.lang.Integer.max
+import java.lang.Integer.min
 import javax.inject.Inject
 
 @HiltViewModel
@@ -35,8 +37,8 @@ class HomeViewModel @Inject constructor(
 
     private var rvloading = false
 
-    private val _musickDetailEvent = MutableLiveData<Event<Track>>()
-    val musickDetailEvent: LiveData<Event<Track>> = _musickDetailEvent
+    private val _musickDetailEvent = MutableLiveData<Event<Pair<ArrayList<Track>, Int>>>()
+    val musickDetailEvent: LiveData<Event<Pair<ArrayList<Track>, Int>>> = _musickDetailEvent
 
     private lateinit var favoriteTrackIds: List<Int>
     private lateinit var favoriteTracks: List<Track>
@@ -159,7 +161,9 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun onMusicDetail(item: Track) {
-        _musickDetailEvent.value = Event(item)
+    fun onMusicDetail(pos: Int) {
+        var position = pos - max(0,pos-20)
+        var limitMusicList = ArrayList(arrMusic.subList(max(0,pos-20),min(pos+20,arrMusic.size)))
+        _musickDetailEvent.value = Event(Pair(limitMusicList, pos))
     }
 }

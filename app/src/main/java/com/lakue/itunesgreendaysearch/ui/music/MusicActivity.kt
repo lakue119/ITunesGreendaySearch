@@ -1,19 +1,13 @@
 package com.lakue.itunesgreendaysearch.ui.music
 
-import android.content.Intent
-import android.graphics.Typeface
 import android.media.AudioManager
 import android.media.MediaPlayer
-import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import android.util.Log
+import android.os.Build
+import androidx.annotation.RequiresApi
 import com.lakue.itunesgreendaysearch.R
 import com.lakue.itunesgreendaysearch.base.BaseActivity
-import com.lakue.itunesgreendaysearch.databinding.ActivityErrorBinding
 import com.lakue.itunesgreendaysearch.databinding.ActivityMusicBinding
 import com.lakue.itunesgreendaysearch.model.Track
-import com.lakue.itunesgreendaysearch.ui.error.ErrorViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -25,29 +19,44 @@ class MusicActivity : BaseActivity<ActivityMusicBinding, MusicViewModel>(R.layou
 
     companion object {
         const val EXTRA_TRACK = "EXTRA_TRACK"
+        const val EXTRA_POSITION = "EXTRA_POSITION"
     }
 
     lateinit var mediaPlayer: MediaPlayer
 
 
-    private val track by lazy { intent.getSerializableExtra(EXTRA_TRACK) as Track }
+    private val tracks by lazy { intent.getSerializableExtra(EXTRA_TRACK) as ArrayList<Track> }
+    private val pos by lazy { intent.getIntExtra(EXTRA_POSITION,0) }
+    var nowPosition = 0
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun init() {
+        binding.activity = this@MusicActivity
+        showLoading()
+        nowPosition = pos - Integer.max(0, pos - 20)
+
+        mediaPlayer = MediaPlayer()
+
+        musicStart()
+        setEvent()
+    }
+
+    fun musicStart(){
+        mediaPlayer.reset()
         showLoading()
         CoroutineScope(Dispatchers.Main).launch {
             CoroutineScope(Dispatchers.Default).async {
                 // background thread
-                mediaPlayer = MediaPlayer()
                 mediaPlayer.apply{
                     setAudioStreamType(AudioManager.STREAM_MUSIC)
-                    setDataSource(track.previewUrl)
+                    setDataSource(tracks[nowPosition].previewUrl)
                     prepare()
                 }
             }.await()
             hideLoading()
             binding.apply{
-                music = track
-                musicPlayerView.setCoverURL(track.artworkUrl100)
+                music = tracks[nowPosition]
+                musicPlayerView.setCoverURL(tracks[nowPosition].artworkUrl100)
                 musicPlayerView.setMax(mediaPlayer.duration/1000)
 
                 musicPlayerView.stop()
@@ -56,7 +65,6 @@ class MusicActivity : BaseActivity<ActivityMusicBinding, MusicViewModel>(R.layou
                 isStart = true
             }
         }
-        setEvent()
     }
 
     fun setEvent(){
@@ -73,6 +81,12 @@ class MusicActivity : BaseActivity<ActivityMusicBinding, MusicViewModel>(R.layou
                 }
             }
         }
+
+        mediaPlayer.apply{
+            setOnCompletionListener {
+                onNextMusic()
+            }
+        }
     }
 
     override fun onDestroy() {
@@ -80,6 +94,24 @@ class MusicActivity : BaseActivity<ActivityMusicBinding, MusicViewModel>(R.layou
         mediaPlayer.stop()
         mediaPlayer.release()
         super.onDestroy()
+    }
+
+    fun onNextMusic(){
+        if(nowPosition >= tracks.size-1){
+            nowPosition = 0
+        } else {
+            nowPosition++
+        }
+        musicStart()
+    }
+
+    fun onBeforeMusic(){
+        if(nowPosition <= 0){
+            nowPosition = tracks.size-1
+        } else {
+            nowPosition--
+        }
+        musicStart()
     }
 
 

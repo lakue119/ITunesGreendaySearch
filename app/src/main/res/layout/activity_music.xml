@@ -7,6 +7,9 @@
         <variable
             name="music"
             type="com.lakue.itunesgreendaysearch.model.Track" />
+        <variable
+            name="activity"
+            type="com.lakue.itunesgreendaysearch.ui.music.MusicActivity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -54,7 +57,36 @@
             app:textColor="#80FFFFFF"
             app:textSize="14sp" />
 
+        <LinearLayout
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/music_player_view"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
+            <ImageView
+                android:onClick="@{() -> activity.onBeforeMusic()}"
+                android:src="@drawable/ic_round_skip_previous_24"
+                android:layout_width="48dp"
+                android:layout_height="48dp"/>
+
+            <CheckBox
+                android:id="@+id/check_all"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="right|bottom"
+                android:background="@drawable/selector_star"
+                android:button="@drawable/selector_star"
+                android:checked="false"/>
+
+            <ImageView
+                android:onClick="@{() -> activity.onNextMusic()}"
+                android:src="@drawable/ic_round_skip_next_24"
+                android:layout_width="48dp"
+                android:layout_height="48dp"/>
+
+        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
