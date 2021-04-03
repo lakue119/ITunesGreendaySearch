@@ -25,6 +25,8 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class FavoriteFragment: BaseFragment<FragmentFavoriteBinding, HomeViewModel>(R.layout.fragment_favorite) {
 
+    val TAG = "FavoriteFragment"
+
     private val launcher: ActivityResultLauncher<Intent> = registerForActivityResult(
         ActivityContract()
     ) {
@@ -34,7 +36,7 @@ class FavoriteFragment: BaseFragment<FragmentFavoriteBinding, HomeViewModel>(R.l
                 fetchFavoriteTrack()
                 favoriteTrackCheck(changeIds)
             }
-            LogUtil.d("KQWJRKLQWJRLKQQ", changeIds.toString())
+            LogUtil.d(TAG, changeIds.toString())
         }.run {
 //            finish()
         }

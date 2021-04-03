@@ -20,6 +20,8 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.fragment_home) {
 
+    val TAG = "HomeFragment"
+
     private val launcher: ActivityResultLauncher<Intent> = registerForActivityResult(
         ActivityContract()
     ) {
@@ -29,7 +31,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.f
                 fetchFavoriteTrack()
                 favoriteTrackCheck(changeIds)
             }
-            LogUtil.d("KQWJRKLQWJRLKQQ", changeIds.toString())
+            LogUtil.d(TAG, changeIds.toString())
         }.run {
 //            finish()
         }

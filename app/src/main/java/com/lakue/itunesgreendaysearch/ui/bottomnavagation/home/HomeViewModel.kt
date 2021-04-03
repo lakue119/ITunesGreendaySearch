@@ -26,6 +26,8 @@ class HomeViewModel @Inject constructor(
         private val iTunesRepository: ITunesRepository
 ) : BaseViewModel() {
 
+    val TAG = "HomeViewModel"
+
     val LIMIT_COUNT = 30
 
     private val _liveMusic = MutableLiveData<ArrayList<Track>>()
@@ -155,10 +157,10 @@ class HomeViewModel @Inject constructor(
             for(pos in trackPositions){
                 var trackId = arrMusic[pos].trackId
                 if (favoriteTrackIds.contains(trackId)) {
-                    LogUtil.i("QWLKRJKLQWJR", "$pos :  isFavorite : true")
+                    LogUtil.i(TAG, "$pos :  isFavorite : true")
                     adapter.favoriteTrackChanged(pos, true)
                 } else {
-                    LogUtil.i("QWLKRJKLQWJR", "$pos :  isFavorite : false")
+                    LogUtil.i(TAG, "$pos :  isFavorite : false")
                     adapter.favoriteTrackChanged(pos, false)
                 }
             }
@@ -180,7 +182,7 @@ class HomeViewModel @Inject constructor(
 
     fun onMusicDetail(homePos: Int) {
         //detail 0번째 position
-        LogUtil.d("KQWJRKLQWJRLK", "vm homePos : $homePos")
+        LogUtil.d(TAG, "vm homePos : $homePos")
         var position = homePos - max(0,homePos-30)
         var arrTracks = liveMusic.value!!
         var limitMusicList = ArrayList(arrTracks.subList(max(0,homePos-30),min(homePos+30,arrTracks.size)))

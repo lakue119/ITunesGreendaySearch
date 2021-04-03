@@ -13,6 +13,7 @@ import com.lakue.itunesgreendaysearch.utils.LogUtil
 
 class HomeAdapter(val viewModel: HomeViewModel) : BaseAdapter() {
 
+    val TAG = "HomeAdapter"
     var musiclist = ArrayList<Track>()
 
     fun addItems(items: ArrayList<Track>) {
@@ -23,7 +24,7 @@ class HomeAdapter(val viewModel: HomeViewModel) : BaseAdapter() {
 
     fun favoriteTrackChanged(pos: Int, isFavorite: Boolean){
         musiclist[pos].favorite = isFavorite
-        LogUtil.i("QWLKRJKLQWJR", "$pos :  ${musiclist[pos]}    isFavorite : $isFavorite")
+        LogUtil.i(TAG, "$pos :  ${musiclist[pos]}    isFavorite : $isFavorite")
         notifyItemChanged(pos)
     }
 
@@ -56,7 +57,7 @@ class HomeAdapter(val viewModel: HomeViewModel) : BaseAdapter() {
             BaseViewHolder(binding.root) {
         fun onBind(music: Track) {
             binding.apply {
-                LogUtil.i("QWLKRJKLQWJR", "Bind / $adapterPosition :  ${music}")
+                LogUtil.i(TAG, "Bind / $adapterPosition :  ${music}")
                 this.vm = viewModel
                 this.music = music
                 this.pos = adapterPosition
